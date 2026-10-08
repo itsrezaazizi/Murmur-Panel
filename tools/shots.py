@@ -41,6 +41,7 @@ async def main():
         await m.evaluate("document.activeElement.blur()"); await m.wait_for_timeout(200)
         shots["m-signup"] = await m.screenshot()
         await m.goto(URL + "#connect"); await m.reload(); await m.wait_for_timeout(500)
+        shots["m-connect0"] = await m.screenshot()
         await m.click('[data-act="connect"]:visible'); await m.wait_for_timeout(3300)
         shots["m-connect"] = await m.screenshot()
         await m.click('[data-act="builder"]:visible'); await m.wait_for_timeout(600)

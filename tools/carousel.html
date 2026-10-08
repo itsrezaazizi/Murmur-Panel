@@ -1,0 +1,150 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<style>
+@font-face{font-family:'Bricolage Grotesque';src:url(../fonts/BricolageGrotesque.woff2) format('woff2');font-weight:200 800}
+@font-face{font-family:'Geist';src:url(../fonts/Geist.woff2) format('woff2');font-weight:100 900}
+@font-face{font-family:'Geist Mono';src:url(../fonts/GeistMono.woff2) format('woff2');font-weight:100 900}
+:root{--ink:#0F1716;--ink2:#3D4847;--muted:#68726F;--paper:#F6F7F5;--brand:#0E7C70;--deep:#0A5A52;--soft:#E4F2EF;--butter:#FFC94D;
+ --dg:radial-gradient(120% 80% at 100% 0%,rgba(255,201,77,.25) 0%,transparent 45%),linear-gradient(155deg,#0F7A6E 0%,#0A4E47 55%,#08302C 100%)}
+*{box-sizing:border-box;margin:0}
+body{background:#999;font-family:'Geist',sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+.s{width:1080px;height:1350px;position:relative;overflow:hidden;background:var(--paper);padding:88px 88px 0;display:flex;flex-direction:column;margin-bottom:20px}
+.s.dark{background:var(--dg);color:#fff}
+h1,h2{font-family:'Bricolage Grotesque';font-weight:700;letter-spacing:-.035em;line-height:1.02;font-variation-settings:"opsz" 96}
+h1{font-size:104px;letter-spacing:-.03em}
+h2{font-size:80px}
+.dark h1,.dark h2{color:#fff}
+.k{font-family:'Geist Mono';font-size:24px;letter-spacing:.04em;text-transform:uppercase;color:var(--brand);display:flex;align-items:center;gap:14px}
+.k::before{content:"";width:14px;height:14px;border-radius:50%;background:var(--butter);box-shadow:0 0 0 7px rgba(255,201,77,.25)}
+.dark .k{color:var(--butter)}
+p.b{font-size:34px;line-height:1.45;color:var(--ink2);margin-top:32px;max-width:860px}
+.dark p.b{color:rgba(255,255,255,.8)}
+.hl{white-space:nowrap;background:linear-gradient(transparent 60%,var(--butter) 60%,var(--butter) 92%,transparent 92%);color:var(--deep);padding-inline:.04em}
+.dark .hl{color:var(--ink)}
+.foot{position:absolute;left:88px;right:88px;bottom:56px;display:flex;justify-content:space-between;align-items:center;font-family:'Geist Mono';font-size:22px;color:var(--muted)}
+.dark .foot{color:rgba(255,255,255,.6)}
+.logo{display:flex;align-items:center;gap:14px;font-family:'Bricolage Grotesque';font-weight:700;font-size:40px;letter-spacing:-.04em;color:inherit}
+.logo svg{width:52px;height:52px}
+.shot{margin-top:auto;margin-inline:-8px;border-radius:28px 28px 0 0;overflow:hidden;box-shadow:0 -2px 0 rgba(0,0,0,.04),0 40px 80px -30px rgba(10,74,68,.5);border:1px solid rgba(0,0,0,.06);border-bottom:0}
+.shot img{display:block;width:100%}
+.phone{width:440px;border-radius:56px;background:#0F1716;padding:12px;box-shadow:0 50px 90px -40px rgba(0,0,0,.6)}
+.phone img{display:block;width:100%;border-radius:46px}
+.row{display:flex;gap:48px;align-items:flex-end;margin-top:auto}
+.pd{display:grid;gap:22px;margin-top:40px}
+.pd div{background:#fff;border:1px solid #E1E6E3;border-radius:28px;padding:28px 32px;font-size:30px;line-height:1.4;color:var(--ink2)}
+.pd b{display:block;font-family:'Geist Mono';font-weight:500;font-size:20px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.pd div.d{background:var(--soft);border-color:#CDE6E0;color:var(--ink)}
+.pd div.d b{color:var(--brand)}
+.n{position:absolute;top:88px;right:88px;font-family:'Geist Mono';font-size:24px;color:var(--muted)}
+.dark .n{color:rgba(255,255,255,.6)}
+.sw{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:48px}
+.sw div{height:190px;border-radius:28px;padding:22px;display:flex;flex-direction:column;justify-content:flex-end;font-size:26px;font-weight:600;border:1px solid rgba(0,0,0,.06)}
+.sw span{font-family:'Geist Mono';font-weight:400;font-size:20px;opacity:.75}
+.ty{display:grid;gap:20px;margin-top:20px}
+.ty div{background:#fff;border:1px solid #E1E6E3;border-radius:28px;padding:26px 32px;display:flex;justify-content:space-between;align-items:baseline}
+.ty em{font-style:normal;font-size:22px;color:var(--muted);font-family:'Geist Mono'}
+.list{list-style:none;padding:0;margin-top:48px;display:grid;gap:26px}
+.list li{font-size:40px;display:flex;gap:22px;align-items:center}
+.list li i{flex:none;width:56px;height:56px;border-radius:16px;background:rgba(255,255,255,.14);display:grid;place-items:center;font-style:normal;font-family:'Geist Mono';font-size:22px;color:var(--butter)}
+.cta{margin-top:56px;display:inline-flex;align-items:center;gap:16px;background:var(--butter);color:var(--ink);font-weight:600;font-size:34px;height:96px;padding-inline:44px;border-radius:24px;align-self:flex-start}
+.comment{display:inline-flex;align-items:center;gap:18px;background:#fff;border-radius:24px;padding:20px 28px;font-size:34px;box-shadow:0 20px 50px -20px rgba(0,0,0,.25);margin-top:44px;align-self:flex-start}
+.comment .av{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#E9C9A8,#B98B66)}
+.comment b{font-weight:600;margin-right:10px}
+.stack{display:flex;flex-direction:column;gap:18px;margin-top:44px}
+.stack .comment{margin:0}
+.stack .comment:nth-child(2){margin-left:60px;opacity:.85}
+.stack .comment:nth-child(3){margin-left:120px;opacity:.65}
+.stack .comment:nth-child(4){margin-left:180px;opacity:.45}
+</style></head><body>
+
+<!-- 1 cover -->
+<section class="s dark" id="s1">
+  <div class="logo">{{MARK}}murmur</div>
+  <h1 style="margin-top:96px">From “price?” to a <span class="hl">live auto&#8209;reply</span> in 5&nbsp;minutes.</h1>
+  <p class="b">A product design case study: the landing page and onboarding for an Instagram DM tool. Open source.</p>
+  <div class="shot" style="margin-top:auto"><img src="../docs/landing.jpg"></div>
+  <span class="n">swipe →</span>
+</section>
+
+<!-- 2 problem -->
+<section class="s" id="s2">
+  <span class="k">The problem</span>
+  <h2 style="margin-top:36px">Small shops answer the same question all day.</h2>
+  <div class="stack">
+    <div class="comment"><span class="av"></span><span><b>ella.r</b>price?</span></div>
+    <div class="comment"><span class="av" style="background:linear-gradient(135deg,#C9D6E8,#7C93B5)"></span><span><b>nina.k</b>price??</span></div>
+    <div class="comment"><span class="av" style="background:linear-gradient(135deg,#E6D2E6,#A47AA4)"></span><span><b>sam.l</b>how much</span></div>
+    <div class="comment"><span class="av" style="background:linear-gradient(135deg,#D8E6CF,#86A777)"></span><span><b>jo.p</b>price pls</span></div>
+  </div>
+  <p class="b" style="margin-top:56px">Automation tools exist, but most start with an empty canvas of triggers and nodes. A shop owner replying at midnight gives up before she sees it work.</p>
+  <p class="b" style="margin-top:20px;color:var(--ink);font-weight:500">So the brief: from landing page to a working auto-reply in <span class="hl">under five minutes</span>.</p>
+  <span class="n">02 / 07</span>
+</section>
+
+<!-- 3 decision 1 -->
+<section class="s" id="s3">
+  <span class="k">Decision 01</span>
+  <h2 style="margin-top:36px">Start filled in, not empty.</h2>
+  <div class="pd">
+    <div><b>Problem</b>An empty builder asks people to design an automation before they’ve seen one work.</div>
+    <div class="d"><b>Decision</b>The form opens with a realistic example. Going live means editing text, not making decisions.</div>
+  </div>
+  <div class="row" style="justify-content:center;margin-bottom:-120px"><div class="phone"><img src="../docs/m-builder.jpg"></div></div>
+  <span class="n">03 / 07</span>
+</section>
+
+<!-- 4 decision 2 -->
+<section class="s" id="s4">
+  <span class="k">Decision 02</span>
+  <h2 style="margin-top:36px">Show it, don’t configure it.</h2>
+  <div class="pd">
+    <div><b>Problem</b>Settings and the customer’s view live in different places, so mistakes show up in production.</div>
+    <div class="d"><b>Decision</b>A live phone preview renders the comment or the DM as you type, and follows whatever you’re editing.</div>
+  </div>
+  <div class="shot"><img src="../docs/builder.jpg"></div>
+  <span class="n">04 / 07</span>
+</section>
+
+<!-- 5 decision 3 -->
+<section class="s" id="s5">
+  <span class="k">Decision 03</span>
+  <h2 style="margin-top:36px">Answer the fear where it starts.</h2>
+  <div class="pd">
+    <div><b>Problem</b>“Log in with Instagram” is exactly where a cautious seller stops: will I get banned? do you get my password?</div>
+    <div class="d"><b>Decision</b>Three short promises right next to the button, and the account requirement before it can fail.</div>
+  </div>
+  <div class="row" style="justify-content:center;margin-bottom:-160px"><div class="phone"><img src="../docs/m-connect0.jpg"></div></div>
+  <span class="n">05 / 07</span>
+</section>
+
+<!-- 6 system -->
+<section class="s" id="s6">
+  <span class="k">Design system</span>
+  <h2 style="margin-top:36px">Calm teal. One warm accent.</h2>
+  <p class="b">The category is full of blue-to-purple gradients. Teal carries every action; butter is rationed for “look here”.</p>
+  <div class="sw">
+    <div style="background:#0E7C70;color:#fff">Lagoon<span>#0E7C70</span></div>
+    <div style="background:#FFC94D">Butter<span>#FFC94D</span></div>
+    <div style="background:#0F1716;color:#fff">Ink<span>#0F1716</span></div>
+  </div>
+  <div class="ty">
+    <div><span style="font-family:'Bricolage Grotesque';font-weight:700;font-size:56px;letter-spacing:-.03em">Bricolage</span><em>display</em></div>
+    <div><span style="font-weight:600;font-size:52px;letter-spacing:-.02em">Geist</span><em>interface</em></div>
+    <div><span style="font-family:'Geist Mono';font-size:48px">4 · 8 · 12 · 16</span><em>4px scale</em></div>
+  </div>
+  <span class="n">06 / 07</span>
+</section>
+
+<!-- 7 cta -->
+<section class="s dark" id="s7">
+  <div class="logo">{{MARK}}murmur</div>
+  <h2 style="margin-top:96px">Click through it. Fork it. Tell me what you’d change.</h2>
+  <ul class="list">
+    <li><i>01</i>A clickable prototype, from sign-up to go-live</li>
+    <li><i>02</i>A case study with 13 decisions and why</li>
+    <li><i>03</i>All the source: HTML, CSS, vanilla JS, MIT</li>
+  </ul>
+  <span class="cta">Links in the comments ↓</span>
+  <div class="foot"><span>github.com/itsrezaazizi/murmur</span><span>07 / 07</span></div>
+</section>
+</body></html>
