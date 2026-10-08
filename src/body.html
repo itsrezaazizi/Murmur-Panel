@@ -1,0 +1,434 @@
+<div id="app" dir="ltr" lang="en">
+
+<div class="proto"><div class="wrap">
+  <span><b class="dot"></b>Interactive prototype<span class="hide-sm"> · sample data · a design concept</span></span>
+  <a href="case-study.html"><i class="ic" data-ic="file-text"></i>Read the case study</a>
+</div></div>
+
+<!-- ======================= LANDING ======================= -->
+<section class="view" id="v-landing">
+  <header class="site-head"><div class="wrap">
+    <a class="logo" href="#landing" data-go="landing" aria-label="Murmur home">{{LOGO}}</a>
+    <nav class="site-nav" aria-label="Page sections">
+      <a href="#how" data-scroll="how">How it works</a>
+      <a href="#features" data-scroll="features">Features</a>
+      <a href="#pricing" data-scroll="pricing">Pricing</a>
+      <a href="#faq" data-scroll="faq">FAQ</a>
+    </nav>
+    <div class="head-cta">
+      <button class="btn btn-ghost" data-go="signup">Log in</button>
+      <button class="btn btn-primary" data-go="signup">Start free</button>
+    </div>
+  </div></header>
+
+  <div class="hero"><div class="wrap g12">
+    <div class="hero-copy">
+      <span class="tagpill"><i class="ic" data-ic="sparkles"></i>Comment &amp; DM automation for Instagram</span>
+      <h1>Answer every “price?” comment <span class="gt">in seconds</span>, even while you sleep.</h1>
+      <p class="lead">Pick a keyword and write your reply. Murmur answers under the comment and sends the customer a DM with everything they need. Setup takes under five minutes, no tech skills required.</p>
+      <div class="signup-wrap">
+        <form class="signup-inline" id="heroForm" novalidate>
+          <div class="field">
+            <label class="sr" for="heroEmail">Email</label>
+            <input class="input" id="heroEmail" type="email" inputmode="email" autocomplete="email" placeholder="you@yourshop.com">
+          </div>
+          <button class="btn btn-primary btn-lg" type="submit">Start free<i class="ic" data-ic="arrow-right"></i></button>
+        </form>
+        <span class="err" id="heroErr" hidden></span>
+      </div>
+      <div class="trust">
+        <span><i class="ic" data-ic="lock"></i>No Instagram password</span><b class="sep"></b>
+        <span><i class="ic" data-ic="shield-check"></i>Official Instagram login</span><b class="sep"></b>
+        <span><i class="ic" data-ic="gift"></i>Free plan to start</span>
+      </div>
+    </div>
+
+    <div class="hero-vis">
+      <div class="stage">
+        <div class="ring" aria-hidden="true"></div>
+        <div class="float f1" aria-hidden="true"><span class="fi"><i class="ic" data-ic="message-circle"></i></span><span>New comment<small>“price?”</small></span></div>
+        <div class="float f2" aria-hidden="true"><span class="fi"><i class="ic" data-ic="check"></i></span><span>Reply + DM sent<small>Automatically, 24/7</small></span></div>
+        <div class="phone demo" id="demo" data-s="4" aria-label="How it works: a customer comments, Murmur replies and sends a DM">
+          <div class="screen">
+            <div class="notch"></div>
+            <div class="ig-head"><span class="av story ph-avpage"></span><b>linen.studio</b></div>
+            <div class="ig-img ph ph-p0"><span>Linen shirt dress</span></div>
+            <div class="ig-cap"><b>linen.studio</b>The summer drop is here. Comment “price” and we’ll DM you.</div>
+            <div class="cms">
+              <div class="cm s1"><span class="av ph-avsara"></span><div><b>ella.r</b>price?<div class="meta">just now</div></div></div>
+              <div class="cm reply s2"><span class="av ph-avpage"></span><div><b>linen.studio</b><span class="rtxt">Just sent you prices and colors in DM</span><div class="meta">3s later</div></div></div>
+            </div>
+            <div class="dm-pop s3">
+              <div class="top"><span class="av sm ph-avpage"></span>DM to ella.r<small><i class="ic" data-ic="check"></i>Sent</small></div>
+              <div class="msg">Hi! The linen shirt dress is $89. Tap below to see every color.</div>
+              <div class="b">See colors &amp; order</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div></div>
+
+  <section class="sec band" id="how"><div class="wrap">
+    <div class="sec-head">
+      <span class="tagpill">How it works</span>
+      <h2>Three steps to your first auto-reply</h2>
+      <p>No training, no complex settings. The whole setup is three steps.</p>
+    </div>
+    <div class="steps g12">
+      <div class="step"><span class="n">1</span><div class="step-card">
+        <div class="mock" aria-hidden="true"><div class="m-input">you@linen.studio</div><div class="m-otp"><i>4</i><i>8</i><i>2</i><i>0</i><i>7</i><i>1</i></div></div>
+        <div class="st-h"><h3>Sign up with email</h3><span class="t"><i class="ic" data-ic="clock"></i>Under 1 min</span></div>
+        <p>Enter your email and the 6-digit code we send you. No long forms.</p>
+      </div></div>
+      <div class="step"><span class="n">2</span><div class="step-card">
+        <div class="mock" aria-hidden="true"><div class="m-btn"><i class="ic" data-ic="instagram"></i>Continue with Instagram</div><div class="m-page"><span class="av sm ph-avpage"></span><span class="u">@linen.studio</span><span class="pill ok"><i class="ic" data-ic="check"></i>Connected</span></div></div>
+        <div class="st-h"><h3>Connect your account</h3><span class="t"><i class="ic" data-ic="clock"></i>About 1 min</span></div>
+        <p>A few clicks on Instagram’s official login. We never see your password.</p>
+      </div></div>
+      <div class="step"><span class="n">3</span><div class="step-card">
+        <div class="mock" aria-hidden="true"><div class="m-chips"><span>price</span><span>link</span></div><div class="m-row">DM the commenter<span class="m-sw"></span></div></div>
+        <div class="st-h"><h3>Build it and go live</h3><span class="t"><i class="ic" data-ic="clock"></i>2–3 min</span></div>
+        <p>Set a keyword, a comment reply and a DM. We pre-fill an example for you to edit.</p>
+      </div></div>
+    </div>
+  </div></section>
+
+  <section class="sec" id="features"><div class="wrap">
+    <div class="sec-head">
+      <span class="tagpill">Features</span>
+      <h2>Everything you need to reply and sell on Instagram</h2>
+      <p>From the first reply to the sale and the follow-up, all in one dashboard.</p>
+    </div>
+    <div class="g12">
+      <article class="fg w7">
+        <div class="fg-top"><span class="fg-ic"><i class="ic" data-ic="message-circle"></i></span><div><h3>Auto-replies</h3><p class="sub">No comment or message goes unanswered.</p></div></div>
+        <div class="fviz" aria-hidden="true">
+          <div class="flow3">
+            <div class="nd"><small><i class="ic" data-ic="message-circle"></i>Customer comment</small><div class="thumb ph ph-p0"></div><div class="row"><span class="av sm ph-avsara"></span>price?</div></div>
+            <span class="ar"><i class="ic" data-ic="arrow-right"></i></span>
+            <div class="nd"><small><i class="ic" data-ic="reply"></i>Auto-reply</small><div class="thumb ph ph-p0" style="opacity:.35"></div><div class="row"><span class="av sm ph-avpage"></span>Check your DMs</div></div>
+            <span class="ar"><i class="ic" data-ic="arrow-right"></i></span>
+            <div class="nd"><small><i class="ic" data-ic="send"></i>DM</small><div class="row" style="font-weight:500;font-size:12px">The dress is $89. See every color below.</div><div class="btn-mini">See colors &amp; order</div></div>
+          </div>
+        </div>
+        <ul class="fl">
+          <li><span class="li-ic"><i class="ic" data-ic="message-circle"></i></span><div><b>Comment auto-reply</b><span class="d">Replies under any comment that contains your keyword.</span></div></li>
+          <li><span class="li-ic"><i class="ic" data-ic="send"></i></span><div><b>DM after a comment</b><span class="d">Sends the commenter a DM the moment they comment.</span></div></li>
+          <li><span class="li-ic"><i class="ic" data-ic="message-square"></i></span><div><b>DM auto-reply</b><span class="d">Answers incoming messages based on keywords.</span></div></li>
+          <li><span class="li-ic"><i class="ic" data-ic="target"></i></span><div><b>Choose target posts</b><span class="d">All posts and reels, or only the ones you pick.</span></div></li>
+          <li><span class="li-ic"><i class="ic" data-ic="radio"></i></span><div><b>Live replies</b><span class="d">Replies to comments and sends DMs while you’re live.</span></div></li>
+        </ul>
+      </article>
+      <article class="fg w5">
+        <div class="fg-top"><span class="fg-ic"><i class="ic" data-ic="shopping-bag"></i></span><div><h3>DMs that do more than text</h3><p class="sub">Send what moves a customer to checkout.</p></div></div>
+        <div class="fviz" aria-hidden="true">
+          <div class="collage">
+            <div class="cc cvid"><div class="im ph ph-p2"></div><div class="pl"><span><i class="ic" data-ic="play"></i></span></div><small>0:42</small></div>
+            <div class="cc c1"><div class="im ph ph-p5"></div><div class="t"><b>Leather tote</b><span>$115</span></div><div class="by">Buy now</div></div>
+            <div class="cc c2"><div class="im ph ph-p1"></div><div class="t"><b>Silk blouse</b><span>$65</span></div><div class="by">Buy now</div></div>
+            <div class="vvoice"><span class="pp"><i class="ic" data-ic="play"></i></span><span class="w" data-wave="22"></span><small>1:24</small></div>
+          </div>
+        </div>
+        <ul class="fl">
+          <li><span class="li-ic"><i class="ic" data-ic="mic"></i></span><div><b>Voice notes <span class="tag">Starter and up</span></b><span class="d">Audio up to 20 minutes, sent as a playable voice note.</span></div></li>
+          <li><span class="li-ic"><i class="ic" data-ic="link"></i></span><div><b>Quick buttons &amp; links</b><span class="d">Buttons and direct links right under your DM.</span></div></li>
+          <li><span class="li-ic"><i class="ic" data-ic="video"></i></span><div><b>Video &amp; PDF catalog <span class="tag">Video: Starter and up</span></b><span class="d">Product videos and catalog files.</span></div></li>
+          <li><span class="li-ic"><i class="ic" data-ic="shopping-bag"></i></span><div><b>Product carousel</b><span class="d">Product cards with a photo, price and buy button.</span></div></li>
+        </ul>
+      </article>
+      <article class="fg w5">
+        <div class="fg-top"><span class="fg-ic"><i class="ic" data-ic="magnet"></i></span><div><h3>Capture and follow up</h3><p class="sub">Turn engagement into leads and sales.</p></div></div>
+        <div class="fviz" aria-hidden="true">
+          <div class="chatviz">
+            <div class="cv me">Send your number and we’ll text you a discount code</div>
+            <div class="cv them"><span class="av sm ph-avmaryam"></span><span>+1 415 555 0134</span></div>
+            <div class="sms"><span class="pic sm ok"><i class="ic" data-ic="smartphone"></i></span><div><b>SMS sent</b><span>Linen Studio, 15% off: LINEN15</span></div></div>
+          </div>
+        </div>
+        <ul class="fl">
+          <li><span class="li-ic"><i class="ic" data-ic="clipboard-list"></i></span><div><b>Forms &amp; chat quizzes</b><span class="d">Ask questions one at a time and export the answers.</span></div></li>
+          <li><span class="li-ic"><i class="ic" data-ic="smartphone"></i></span><div><b>Phone capture &amp; SMS <span class="tag">Starter and up</span></b><span class="d">Collects a number and texts a discount code.</span></div></li>
+          <li><span class="li-ic"><i class="ic" data-ic="bell"></i></span><div><b>Auto follow-up</b><span class="d">No reply? It sends another message a few hours later.</span></div></li>
+        </ul>
+      </article>
+      <article class="fg w7">
+        <div class="fg-top"><span class="fg-ic"><i class="ic" data-ic="shield-check"></i></span><div><h3>Account safety and teamwork</h3><p class="sub">Your account stays safe and your team works together.</p></div></div>
+        <div class="fviz" aria-hidden="true">
+          <div class="tiles">
+            <div class="tile"><span class="ic"><i class="ic" data-ic="shuffle"></i></span><b>Text variations</b><div class="lines"><i style="width:100%"></i><i style="width:72%"></i><i style="width:88%"></i></div></div>
+            <div class="tile"><span class="ic"><i class="ic" data-ic="layers"></i></span><b>Up to 3 accounts</b><div class="avs"><span class="av ph-avpage"></span><span class="av ph-p6"></span><span class="av ph-p7"></span></div></div>
+            <div class="tile"><span class="ic"><i class="ic" data-ic="users"></i></span><b>Team admins</b><div class="avs"><span class="av ph-avsara"></span><span class="av ph-avmaryam"></span></div></div>
+          </div>
+        </div>
+        <ul class="fl">
+          <li><span class="li-ic"><i class="ic" data-ic="shuffle"></i></span><div><b>Anti-spam</b><span class="d">Text variations and random delays keep your account from being restricted.</span></div></li>
+          <li><span class="li-ic"><i class="ic" data-ic="layers"></i></span><div><b>Multiple accounts</b><span class="d">Add and switch between up to 3 accounts.</span></div></li>
+          <li><span class="li-ic"><i class="ic" data-ic="users"></i></span><div><b>Team admins</b><span class="d">Invite teammates and choose what they can access.</span></div></li>
+          <li><span class="li-ic"><i class="ic" data-ic="inbox"></i></span><div><b>Inbox</b><span class="d">Every message and comment, with sent or failed status.</span></div></li>
+          <li><span class="li-ic"><i class="ic" data-ic="bar-chart"></i></span><div><b>Analytics</b><span class="d">Replies sent, engagement rate and top keywords.</span></div></li>
+          <li><span class="li-ic"><i class="ic" data-ic="copy"></i></span><div><b>Templates</b><span class="d">Welcome messages and common replies, ready to use.</span></div></li>
+        </ul>
+      </article>
+    </div>
+  </div></section>
+
+  <section class="sec band" id="pricing"><div class="wrap">
+    <div class="sec-head">
+      <span class="tagpill">Pricing</span>
+      <h2>Start free. Upgrade as you grow.</h2>
+    </div>
+    <div class="plans g12">
+      <div class="plan">
+        <div><h3>Free</h3><p class="fit">For trying it out on a new account</p></div>
+        <div class="price">$0</div>
+        <ul class="pl">
+          <li><span>Connected accounts</span><span>1</span></li>
+          <li><span>Auto-replies you can build</span><span>Unlimited</span></li>
+          <li><span>Monthly sends</span><span>Limited</span></li>
+          <li><span>Comment &amp; DM auto-reply</span><span class="yes">Text only</span></li>
+          <li><span>Anti-spam</span><span class="yes">Included</span></li>
+          <li><span>Voice &amp; video</span><span class="no">Not included</span></li>
+          <li><span>SMS</span><span class="no">Not included</span></li>
+        </ul>
+        <button class="btn btn-ghost btn-lg btn-block" data-go="signup">Start free</button>
+      </div>
+      <div class="plan hi">
+        <span class="badge"><i class="ic" data-ic="sparkles"></i>Most popular</span>
+        <div><h3>Starter</h3><p class="fit">For growing shops that sell in DMs</p></div>
+        <div class="price">$19 <small>/ month</small></div>
+        <ul class="pl">
+          <li><span>Connected accounts</span><span>1</span></li>
+          <li><span>Auto-replies you can build</span><span>Unlimited</span></li>
+          <li><span>Monthly sends</span><span>Unlimited</span></li>
+          <li><span>Comment &amp; DM auto-reply</span><span class="yes">Included</span></li>
+          <li><span>Anti-spam</span><span class="yes">Included</span></li>
+          <li><span>Voice &amp; video</span><span class="yes">Up to 5 min</span></li>
+          <li><span>SMS</span><span class="yes">Included</span></li>
+        </ul>
+        <button class="btn btn-white btn-lg btn-block" data-go="signup">Get Starter</button>
+      </div>
+      <div class="plan">
+        <div><h3>Pro</h3><p class="fit">For busy shops running several accounts</p></div>
+        <div class="price">$49 <small>/ month</small></div>
+        <ul class="pl">
+          <li><span>Connected accounts</span><span>Up to 3</span></li>
+          <li><span>Auto-replies you can build</span><span>Unlimited</span></li>
+          <li><span>Monthly sends</span><span>Unlimited</span></li>
+          <li><span>Comment &amp; DM auto-reply</span><span class="yes">Included</span></li>
+          <li><span>Anti-spam</span><span class="yes">Included</span></li>
+          <li><span>Voice &amp; video</span><span class="yes">Up to 20 min</span></li>
+          <li><span>SMS</span><span class="yes">Included</span></li>
+        </ul>
+        <button class="btn btn-ghost btn-lg btn-block" data-go="signup">Get Pro</button>
+      </div>
+    </div>
+    <p class="plan-note">If your subscription ends and isn’t renewed, your auto-replies pause.</p>
+  </div></section>
+
+  <section class="sec" id="faq"><div class="wrap">
+    <div class="sec-head"><span class="tagpill">FAQ</span><h2>Before you connect your account</h2></div>
+    <div class="g12 faq-grid">
+      <div class="faq">
+        <details open><summary>Do I have to give you my Instagram password?<span class="pm"><i class="ic" data-ic="plus"></i></span></summary><p>No. You connect through Instagram’s official login, so your password never reaches Murmur. You can revoke access from your Instagram settings at any time.</p></details>
+        <details><summary>Will my account get blocked or restricted?<span class="pm"><i class="ic" data-ic="plus"></i></span></summary><p>Murmur connects only through Instagram’s official API and stays within its sending limits. Replies go out with text variations and a few seconds’ delay, and each person gets one DM per post, so your account never behaves like spam.</p></details>
+        <details><summary>I have a personal account. Can I use Murmur?<span class="pm"><i class="ic" data-ic="plus"></i></span></summary><p>Your account needs to be professional (Business or Creator). Switching is free and takes about a minute, and there’s a two-minute video on the connect screen.</p></details>
+        <details><summary>How many accounts can I connect?<span class="pm"><i class="ic" data-ic="plus"></i></span></summary><p>One on Free and Starter, up to three on Pro.</p></details>
+        <details><summary>How long does setup take?<span class="pm"><i class="ic" data-ic="plus"></i></span></summary><p>Under five minutes from sign-up to your first live auto-reply. We pre-fill an example, so you only swap in your own product.</p></details>
+      </div>
+      <div class="art" role="img" aria-label="Illustration: a safe, official Instagram connection with no password">
+        <svg class="scene" viewBox="0 0 400 520" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <defs>
+            <linearGradient id="sh" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFE29A"/><stop offset=".55" stop-color="#FFC94D"/><stop offset="1" stop-color="#F2A93B"/></linearGradient>
+            <linearGradient id="phg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFFFFF" stop-opacity=".22"/><stop offset="1" stop-color="#FFFFFF" stop-opacity=".04"/></linearGradient>
+          </defs>
+          <circle cx="200" cy="200" r="148" fill="none" stroke="#FFFFFF" stroke-opacity=".10" stroke-width="1.5"/>
+          <circle cx="200" cy="200" r="104" fill="none" stroke="#FFFFFF" stroke-opacity=".14" stroke-width="1.5" stroke-dasharray="4 8"/>
+          <rect x="136" y="88" width="128" height="232" rx="24" fill="url(#phg)" stroke="#FFFFFF" stroke-opacity=".32" stroke-width="1.5"/>
+          <rect x="176" y="100" width="48" height="8" rx="4" fill="#FFFFFF" fill-opacity=".3"/>
+          <rect x="152" y="252" width="96" height="12" rx="6" fill="#FFFFFF" fill-opacity=".22"/>
+          <rect x="164" y="276" width="72" height="12" rx="6" fill="#FFFFFF" fill-opacity=".14"/>
+          <path d="M200 140l44 16v32c0 26-18 46-44 52-26-6-44-26-44-52v-32z" fill="url(#sh)"/>
+          <path d="M182 194l12 12 24-26" fill="none" stroke="#0A4A44" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="achip c1"><i class="ic" data-ic="lock"></i>No password needed</span>
+        <span class="achip c2"><i class="ic" data-ic="check"></i>Official Instagram login</span>
+        <span class="achip c3"><i class="ic" data-ic="shuffle"></i>Anti-spam sending</span>
+        <h3>Safe and official</h3>
+        <p>Murmur connects to your account only through Instagram’s official channel, and you can revoke access anytime.</p>
+      </div>
+    </div>
+  </div></section>
+
+  <div class="wrap" style="padding-bottom:var(--s-16)">
+    <div class="final">
+      <div><h2>Turn on your first auto-reply today</h2><p>Sign up with email, connect in a few clicks, live in under 5 minutes.</p></div>
+      <button class="btn btn-white btn-lg" data-go="signup">Start free<i class="ic" data-ic="arrow-right"></i></button>
+    </div>
+  </div>
+  <footer class="foot"><div class="wrap">
+    <span class="by">{{LOGO}}<small>A design concept. Not affiliated with Instagram or Meta.</small></span>
+    <span><a href="case-study.html">Case study</a> · © 2026 Murmur</span>
+  </div></footer>
+
+  <div class="mcta on" id="mcta">
+    <div style="flex:1;min-width:0"><b style="font-size:14px">Start free</b><br><small>First auto-reply in under 5 minutes</small></div>
+    <button class="btn btn-primary" data-go="signup">Start</button>
+  </div>
+</section>
+
+<!-- ======================= FLOW HEADER ======================= -->
+<header class="flow-head" id="flowHead" hidden><div class="wrap">
+  <a class="logo" href="#landing" data-go="landing" aria-label="Murmur home">{{LOGO}}</a>
+  <button class="btn btn-ghost btn-sm" data-go="landing"><i class="ic" data-ic="arrow-left"></i>Back to site</button>
+  <span class="flow-time"><i class="ic" data-ic="clock"></i><span class="tx">Whole setup: under 5 min</span></span>
+</div></header>
+
+<!-- ======================= SIGNUP ======================= -->
+<section class="view flow-bg" id="v-signup" hidden>
+  <div class="center wrap"><div class="flow-col">
+    <div class="wiz" data-wiz></div>
+    <div class="card" id="emailStep">
+      <h1>Sign up or log in</h1>
+      <p class="sub">Enter your email and we’ll send you a 6-digit code.</p>
+      <form class="stack" id="emailForm" novalidate>
+        <div class="field">
+          <label class="lbl" for="email">Email</label>
+          <input class="input" id="email" type="email" inputmode="email" autocomplete="email" placeholder="you@yourshop.com">
+          <span class="err" id="emailErr" hidden></span>
+        </div>
+      </form>
+    </div>
+    <div class="card" id="codeStep" hidden>
+      <h1>Enter your code</h1>
+      <p class="sub">We sent a 6-digit code to <b id="sentTo"></b>. <button class="linkbtn" id="editEmail" type="button">Change email</button></p>
+      <form class="stack" id="codeForm" novalidate>
+        <div class="otp" id="otp">
+          <input inputmode="numeric" maxlength="1" aria-label="Digit 1" autocomplete="one-time-code"><input inputmode="numeric" maxlength="1" aria-label="Digit 2"><input inputmode="numeric" maxlength="1" aria-label="Digit 3"><input inputmode="numeric" maxlength="1" aria-label="Digit 4"><input inputmode="numeric" maxlength="1" aria-label="Digit 5"><input inputmode="numeric" maxlength="1" aria-label="Digit 6">
+        </div>
+        <span class="err" id="codeErr" hidden style="text-align:center"></span>
+        <p class="hint" style="text-align:center" id="resend">Resend code in <span id="cd">0:59</span></p>
+        <p class="protonote">In this prototype, any 6-digit code works.</p>
+      </form>
+    </div>
+    <div class="actions" data-actions></div>
+  </div></div>
+</section>
+
+<!-- ======================= CONNECT ======================= -->
+<section class="view flow-bg" id="v-connect" hidden>
+  <div class="center wrap"><div class="flow-col">
+    <div class="wiz" data-wiz></div>
+    <div class="card" id="connectBefore">
+      <h1>Connect your Instagram account</h1>
+      <p class="sub">A few clicks on Instagram’s official login. Nothing else to set up after that.</p>
+      <div class="stack">
+        <ul class="perm">
+          <li><span class="pic"><i class="ic" data-ic="lock"></i></span><div><b>We never ask for your password</b><small>You log in on Instagram’s own screen.</small></div></li>
+          <li><span class="pic"><i class="ic" data-ic="message-circle"></i></span><div><b>Comments and DMs only</b><small>Murmur can only read and reply to your comments and DMs.</small></div></li>
+          <li><span class="pic"><i class="ic" data-ic="shield-check"></i></span><div><b>Disconnect anytime</b><small>Remove access from Instagram settings or your Murmur dashboard.</small></div></li>
+        </ul>
+        <div class="req">
+          <div class="req-row"><i class="ic" data-ic="info"></i><p>Your account needs to be professional (Business or Creator).</p></div>
+          <details>
+            <summary>Have a personal account? Here’s how<i class="ic" data-ic="chevron-down"></i></summary>
+            <ol>
+              <li>In Instagram, open <b>Settings</b>.</li>
+              <li>Tap <b>Account type and tools</b>.</li>
+              <li>Choose <b>Switch to professional account</b>, then come back here.</li>
+            </ol>
+            <div class="vid"><div><div class="vplay"><i class="ic" data-ic="play"></i></div>2-minute video guide</div></div>
+          </details>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" id="connectAfter" hidden>
+      <span class="pill ok"><i class="ic" data-ic="check"></i>Account connected</span>
+      <h1 style="margin-top:12px">You’re all set</h1>
+      <p class="sub">We’ve loaded your posts. Now let’s build your first auto-reply.</p>
+      <div class="stack">
+        <div class="pagecard"><span class="av lg story ph-avpage"></span><div class="meta"><b>Linen Studio</b><div class="u">@linen.studio</div></div><button class="btn btn-ghost btn-sm" id="changePage" aria-label="Switch account"><i class="ic" data-ic="repeat"></i><span class="hide-xs">Switch account</span></button></div>
+        <div class="kv">
+          <div><b>12.4K</b><span>Followers</span></div>
+          <div><b>86</b><span>Posts &amp; reels</span></div>
+          <div><b id="kvPlan">Free</b><span>Current plan</span></div>
+        </div>
+        <div class="upg" id="upg">
+          <div class="upg-h"><span class="pic sm"><i class="ic" data-ic="crown"></i></span><div><b>Starter makes your DMs richer</b><small>Upgrade whenever you like. You can keep going on Free right now.</small></div></div>
+          <ul>
+            <li><i class="ic" data-ic="mic"></i>Voice &amp; video up to 5 min</li>
+            <li><i class="ic" data-ic="smartphone"></i>Phone capture &amp; SMS</li>
+            <li><i class="ic" data-ic="zap"></i>Unlimited sends</li>
+          </ul>
+          <div class="upg-f"><small><b>$19</b> / month</small><button class="btn btn-ghost btn-sm" id="upgBtn"><i class="ic" data-ic="crown"></i>Upgrade to Starter</button></div>
+        </div>
+      </div>
+    </div>
+    <div class="actions" data-actions></div>
+  </div></div>
+</section>
+
+<!-- ======================= BUILDER ======================= -->
+<section class="view flow-bg" id="v-builder" hidden>
+  <div class="wrap bld">
+    <div class="wiz" data-wiz></div>
+    <div class="bld-grid">
+      <div class="bld-main">
+        <div class="bld-head">
+          <h1>Build your first auto-reply</h1>
+          <p>We’ve pre-filled an example. Swap the text for your own product and turn it on.</p>
+        </div>
+        <div class="panel" id="form"></div>
+        <span class="err act-err" id="fErr" hidden></span>
+        <div class="actions" data-actions></div>
+      </div>
+      <div class="pv-col" id="pvCol">
+        <div class="pv">
+          <div class="pv-h">
+            <b>Live preview</b>
+            <div class="tabs" role="tablist" id="pvTabs">
+              <button role="tab" data-tab="comment" aria-selected="true">Comment</button>
+              <button role="tab" data-tab="dm" aria-selected="false">DM</button>
+            </div>
+          </div>
+          <div class="phone"><div class="screen" id="pvScreen"></div></div>
+          <p class="pv-cap" id="pvCap"></p>
+          <button class="btn btn-ghost btn-block" id="pvClose" style="margin-top:12px" hidden>Close preview</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button class="btn btn-lg fab" id="pvOpen"><i class="ic" data-ic="smartphone"></i>Preview</button>
+</section>
+
+<!-- ======================= DONE ======================= -->
+<section class="view flow-bg" id="v-done" hidden>
+  <div class="wrap done-wrap">
+    <div class="wiz" data-wiz></div>
+    <div class="done-grid">
+      <div>
+        <span class="big-ok"><i class="ic" data-ic="check"></i></span>
+        <h1>Your auto-reply is live</h1>
+        <p class="lead" id="doneLead"></p>
+        <div class="summary" id="doneSum"></div>
+        <div class="test">
+          <h2>Try it now</h2>
+          <p id="testText"></p>
+          <ul class="tl" id="tl">
+            <li data-k="1"><span class="d"><i class="ic" data-ic="check"></i></span><span id="tl1">Comment received</span><small></small></li>
+            <li data-k="2"><span class="d"><i class="ic" data-ic="check"></i></span><span id="tl2">Reply posted under the comment</span><small></small></li>
+            <li data-k="3"><span class="d"><i class="ic" data-ic="check"></i></span><span>DM sent</span><small></small></li>
+          </ul>
+          <button class="btn btn-ghost" id="simBtn" style="margin-top:16px"><i class="ic" data-ic="play"></i>Simulate a test comment</button>
+        </div>
+        <div class="actions" data-actions></div>
+      </div>
+      <div class="phone"><div class="screen" id="doneScreen"></div></div>
+    </div>
+  </div>
+</section>
+
+<div id="ov" class="overlay" hidden><div class="ov-card"><div class="spin"></div><b id="ovT"></b><span class="hint" id="ovS"></span></div></div>
+<div id="toast" class="toast" role="status" hidden></div>
+</div>

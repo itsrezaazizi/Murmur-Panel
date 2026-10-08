@@ -1,0 +1,365 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Murmur case study</title>
+<style>
+:root{
+  --paper:#F6F7F5; --surface:#FFFFFF; --ink:#0F1716; --ink-2:#3D4847; --muted:#68726F;
+  --line:#E1E6E3; --line-2:#EDF1EF;
+  --brand:#0E7C70; --brand-deep:#0A5A52; --brand-soft:#E4F2EF; --brand-tint:#F2F8F6;
+  --butter:#FFC94D; --butter-soft:#FFF4D6;
+  --f:'Geist', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --fd:'Bricolage Grotesque', 'Geist', ui-sans-serif, system-ui, sans-serif;
+  --fm:'Geist Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --deep:radial-gradient(120% 90% at 100% 0%,rgba(255,201,77,.22) 0%,transparent 45%),linear-gradient(150deg,#0F7A6E 0%,#0A4E47 55%,#08302C 100%);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--f);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased}
+a{color:var(--brand-deep);text-underline-offset:3px}
+h1,h2,h3{font-family:var(--fd);margin:0;letter-spacing:-.025em;line-height:1.12;text-wrap:balance;font-weight:700}
+p{margin:0}
+::selection{background:var(--butter)}
+.wrap{max-width:1120px;margin-inline:auto;padding-inline:24px}
+.col{max-width:720px}
+@media (max-width:640px){.wrap{padding-inline:16px}body{font-size:16px}}
+
+/* top bar */
+.top{position:sticky;top:0;z-index:10;background:rgba(246,247,245,.85);backdrop-filter:blur(12px);border-bottom:1px solid var(--line-2)}
+.top .wrap{display:flex;align-items:center;gap:16px;height:64px}
+.logo{display:inline-flex;align-items:center;gap:10px;color:var(--ink);text-decoration:none}
+.logo-svg{width:32px;height:32px}
+.logo-word{font-family:var(--fd);font-weight:700;font-size:22px;letter-spacing:-.04em;line-height:1;padding-bottom:2px}
+.top nav{margin-inline-start:auto;display:flex;gap:8px}
+.btn{display:inline-flex;align-items:center;gap:8px;height:40px;padding-inline:16px;border-radius:12px;font-weight:600;font-size:14px;text-decoration:none;white-space:nowrap;border:1px solid var(--line);background:var(--surface);color:var(--ink-2)}
+.btn:hover{border-color:var(--ink-2)}
+.btn.pri{background:var(--brand);border-color:var(--brand);color:#fff}
+.btn.pri:hover{background:var(--brand-deep)}
+.btn svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+@media (max-width:560px){.top .gh{display:none}}
+@media (max-width:380px){.top .long{display:none}}
+
+/* hero */
+.hero{padding-block:88px 56px}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-family:var(--fm);font-size:12px;letter-spacing:.04em;text-transform:uppercase;color:var(--brand-deep)}
+.kicker::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--butter);box-shadow:0 0 0 4px rgba(255,201,77,.25)}
+.hero h1{font-size:clamp(40px,6vw,76px);letter-spacing:-.035em;line-height:1;margin-top:20px;max-width:14em;font-variation-settings:"opsz" 96}
+.hl{white-space:nowrap;background:linear-gradient(transparent 60%,var(--butter) 60%,var(--butter) 90%,transparent 90%);padding-inline:.05em}
+.hero .lead{font-size:20px;color:var(--ink-2);margin-top:24px;max-width:36em}
+.meta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px;margin-top:48px;padding-top:24px;border-top:1px solid var(--line)}
+.meta dt{font-family:var(--fm);font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+.meta dd{margin:6px 0 0;font-weight:500;font-size:15px}
+@media (max-width:760px){.meta{grid-template-columns:repeat(2,minmax(0,1fr))}.hero{padding-block:56px 40px}}
+
+.cover{border-radius:28px;overflow:hidden;background:var(--deep);padding:40px 40px 0;box-shadow:0 32px 80px -32px rgba(10,74,68,.55)}
+.cover img{display:block;width:100%;border-radius:16px 16px 0 0;box-shadow:0 -1px 0 rgba(255,255,255,.2)}
+@media (max-width:640px){.cover{padding:16px 16px 0;border-radius:20px}}
+
+.note{display:flex;gap:12px;align-items:flex-start;background:var(--butter-soft);border:1px solid #F5DE9C;border-radius:16px;padding:16px 20px;margin-top:32px;font-size:15px;color:#4A3A0B}
+.note b{font-weight:600}
+
+/* sections */
+section.s{padding-block:88px;border-top:1px solid var(--line-2)}
+.s-head{display:grid;grid-template-columns:200px minmax(0,1fr);gap:32px;align-items:start}
+.s-num{font-family:var(--fm);font-size:13px;color:var(--muted);padding-top:12px}
+.s-num b{display:block;color:var(--brand-deep);font-weight:500}
+.s h2{font-size:clamp(30px,3.8vw,44px)}
+.s .intro{font-size:19px;color:var(--ink-2);margin-top:16px}
+.s-body{margin-top:40px;margin-inline-start:232px}
+.s-body > p + p{margin-top:16px}
+@media (max-width:900px){.s-head{grid-template-columns:minmax(0,1fr);gap:8px}.s-num{padding-top:0}.s-body{margin-inline-start:0}section.s{padding-block:64px}}
+
+/* cards */
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+@media (max-width:760px){.grid2,.grid3{grid-template-columns:minmax(0,1fr)}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:20px;padding:24px}
+.card h3{font-size:20px}
+.card p{color:var(--ink-2);font-size:15px;margin-top:8px}
+.card .k{font-family:var(--fm);font-size:12px;color:var(--brand-deep);letter-spacing:.03em;text-transform:uppercase;display:block;margin-bottom:12px}
+.metric{font-family:var(--fd);font-size:40px;font-weight:700;letter-spacing:-.03em;line-height:1;color:var(--brand-deep)}
+
+/* persona */
+.persona{background:var(--surface);border:1px solid var(--line);border-radius:24px;overflow:hidden}
+.p-top{display:flex;gap:20px;align-items:center;padding:28px;background:var(--brand-tint);border-bottom:1px solid var(--line-2)}
+.p-av{width:72px;height:72px;border-radius:20px;background:var(--deep);display:grid;place-items:center;color:var(--butter);font-family:var(--fd);font-size:30px;font-weight:700;flex:none}
+.p-top h3{font-size:26px}
+.p-top p{color:var(--ink-2);font-size:15px;margin-top:4px}
+.p-cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr))}
+.p-cols > div{padding:24px 28px}
+.p-cols > div + div{border-inline-start:1px solid var(--line-2)}
+.p-cols h4{margin:0 0 10px;font-family:var(--fm);font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+.p-cols ul{margin:0;padding-inline-start:18px;font-size:15px;color:var(--ink-2);display:flex;flex-direction:column;gap:6px}
+.quote{padding:24px 28px;border-top:1px solid var(--line-2);font-family:var(--fd);font-size:22px;letter-spacing:-.015em;line-height:1.3}
+.quote small{display:block;font-family:var(--f);font-size:13px;color:var(--muted);letter-spacing:0;margin-top:8px}
+@media (max-width:760px){.p-cols{grid-template-columns:minmax(0,1fr)}.p-cols > div + div{border-inline-start:0;border-top:1px solid var(--line-2)}}
+
+/* principles */
+.pr{counter-reset:pr;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.pr .card{position:relative;padding-top:56px}
+.pr .card::before{counter-increment:pr;content:"0" counter(pr);position:absolute;top:20px;left:24px;font-family:var(--fm);font-size:13px;color:var(--brand)}
+@media (max-width:760px){.pr{grid-template-columns:minmax(0,1fr)}}
+
+/* decisions */
+.dgroup{margin-top:56px}
+.dgroup:first-child{margin-top:0}
+.dgroup > h3{font-size:14px;font-family:var(--fm);font-weight:500;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:16px}
+.dec{display:grid;grid-template-columns:48px minmax(0,1fr);gap:16px;padding-block:24px;border-top:1px solid var(--line)}
+.dec .n{font-family:var(--fm);font-size:13px;color:var(--brand-deep);background:var(--brand-soft);border-radius:10px;height:32px;display:grid;place-items:center}
+.dec h4{margin:0;font-family:var(--fd);font-size:22px;font-weight:700;letter-spacing:-.02em;line-height:1.2}
+.pd{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;margin-top:12px}
+.pd div{font-size:15px;color:var(--ink-2)}
+.pd b{display:block;font-family:var(--fm);font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:4px}
+.pd div:last-child b{color:var(--brand)}
+@media (max-width:640px){.pd{grid-template-columns:minmax(0,1fr);gap:12px}.dec{grid-template-columns:minmax(0,1fr)}.dec .n{width:48px}}
+
+figure{margin:40px 0 0}
+figure img{display:block;width:100%;border-radius:20px;border:1px solid var(--line);background:#fff}
+figcaption{font-size:13px;color:var(--muted);margin-top:10px}
+.shots{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;align-items:start}
+.shots img{border-radius:24px}
+@media (max-width:760px){.shots{grid-template-columns:repeat(3,minmax(200px,1fr));overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px}.shots figure{scroll-snap-align:start}}
+
+/* system */
+.sw{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:12px}
+.sw div{border-radius:16px;height:112px;padding:12px;display:flex;flex-direction:column;justify-content:flex-end;font-size:12px;border:1px solid rgba(0,0,0,.06)}
+.sw b{font-weight:600;font-size:13px}
+.sw span{font-family:var(--fm);opacity:.75}
+@media (max-width:760px){.sw{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.type{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:16px}
+.type .card .big{font-size:48px;line-height:1;letter-spacing:-.03em}
+@media (max-width:760px){.type{grid-template-columns:minmax(0,1fr)}}
+.tok{width:100%;border-collapse:collapse;font-size:15px;margin-top:16px;background:var(--surface);border-radius:16px;overflow:hidden;border:1px solid var(--line)}
+.tok th,.tok td{text-align:start;padding:12px 16px;border-top:1px solid var(--line-2);vertical-align:top}
+.tok th{font-family:var(--fm);font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);background:var(--brand-tint);border-top:0}
+.tok td:first-child{font-weight:600;white-space:nowrap}
+.tok code{font-family:var(--fm);font-size:13px;background:var(--line-2);padding:1px 6px;border-radius:6px}
+.tablewrap{overflow-x:auto}
+
+ul.plain{margin:0;padding-inline-start:20px;display:flex;flex-direction:column;gap:10px;color:var(--ink-2)}
+ul.plain b{color:var(--ink);font-weight:600}
+
+.end{margin-block:24px 64px;background:var(--deep);border-radius:28px;color:#fff;padding:56px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+.end h2{color:#fff;font-size:clamp(28px,3.4vw,40px)}
+.end p{color:rgba(255,255,255,.75);margin-top:8px}
+.end .btn{background:#fff;border-color:#fff;color:var(--brand-deep)}
+.end .btn.ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.35)}
+@media (max-width:640px){.end{padding:32px}}
+footer{padding-block:32px 48px;color:var(--muted);font-size:13px;border-top:1px solid var(--line-2)}
+footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+
+<header class="top"><div class="wrap">
+  <a class="logo" href="index.html" aria-label="Murmur prototype">{{LOGO}}</a>
+  <nav>
+    <a class="btn gh" href="https://github.com/{{REPO}}"><svg viewBox="0 0 24 24"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/><path d="M9 18c-4.51 2-5-2-7-2"/></svg>Source</a>
+    <a class="btn pri" href="index.html">Open<span class="long"> the prototype</span><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+  </nav>
+</div></header>
+
+<main>
+<div class="wrap hero">
+  <span class="kicker">Case study · Concept project</span>
+  <h1>From “price?” to a <span class="hl">live auto&#8209;reply</span> in under five minutes</h1>
+  <p class="lead">Murmur is a design concept for Instagram comment and DM automation. I designed the marketing page and the whole onboarding flow, from sign-up to the first live auto-reply, as one clickable, responsive prototype.</p>
+  <dl class="meta">
+    <div><dt>Role</dt><dd>Product design, UX writing, prototyping</dd></div>
+    <div><dt>Timeframe</dt><dd>2 days</dd></div>
+    <div><dt>Scope</dt><dd>Landing page + 4-step onboarding</dd></div>
+    <div><dt>Built with</dt><dd>HTML, CSS, vanilla JS. No framework</dd></div>
+  </dl>
+</div>
+
+<div class="wrap">
+  <div class="cover"><img src="docs/landing.jpg" alt="Murmur landing page: headline, email sign-up and an animated phone showing a comment, an auto-reply and a DM"></div>
+  <p class="note col"><span>✦</span><span><b>Honest framing:</b> Murmur isn’t a real product, and nothing here was tested with real users or real traffic. There are no results to report, so you won’t find invented numbers below. What you will find is the reasoning behind each decision and how I would measure it.</span></p>
+</div>
+
+<!-- 01 -->
+<section class="s" id="problem"><div class="wrap">
+  <div class="s-head"><div class="s-num"><b>01</b>The problem</div><div>
+    <h2>Small shops answer the same question all day</h2>
+    <p class="intro col">On Instagram, a post that works brings dozens of identical comments: “price?”, “link?”, “sizes?”. Every hour without an answer is a customer who buys somewhere else.</p>
+  </div></div>
+  <div class="s-body col">
+    <p>Comment-to-DM automation already exists. The problem is the setup. Most tools give you a canvas of triggers, conditions and nodes. That works for a marketer. A shop owner replying at midnight between packing orders gives up long before they see any value.</p>
+    <p>So the brief I set myself was narrow: <b>get a non-technical seller from the landing page to a working auto-reply in under five minutes</b>, without hiding any of the product’s depth.</p>
+  </div>
+</div></section>
+
+<!-- 02 -->
+<section class="s" id="goals"><div class="wrap">
+  <div class="s-head"><div class="s-num"><b>02</b>Success criteria</div><div>
+    <h2>What I’d measure</h2>
+    <p class="intro col">These are the targets the design was built around. They are not results.</p>
+  </div></div>
+  <div class="s-body">
+    <div class="grid2">
+      <div class="card"><span class="k">North star</span><div class="metric">&lt; 5 min</div><p>Median time from sign-up to the first live auto-reply. The done screen shows this time to the user, so it doubles as an instrumented event.</p></div>
+      <div class="card"><span class="k">Activation</span><div class="metric">1st session</div><p>Share of new accounts that switch on at least one auto-reply in the session they signed up in.</p></div>
+      <div class="card"><span class="k">Funnel</span><p style="margin-top:0">Landing → sign-up, sign-up → connected account, connected → first reply live. Each step of the wizard maps to one step of the funnel, so drop-off is easy to locate.</p></div>
+      <div class="card"><span class="k">Guardrail</span><p style="margin-top:0">Upgrade prompts should not reduce activation. The free path never hits a dead end, and every locked feature has a “Not now”.</p></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- 03 -->
+<section class="s" id="persona"><div class="wrap">
+  <div class="s-head"><div class="s-num"><b>03</b>Persona</div><div>
+    <h2>Designed for Maya, not for a marketer</h2>
+    <p class="intro col">A proto-persona: built from assumptions about solo sellers, to be checked in interviews. Every screen and every line of copy was checked against her.</p>
+  </div></div>
+  <div class="s-body">
+    <div class="persona">
+      <div class="p-top"><div class="p-av">M</div><div><h3>Maya, owner of Linen Studio</h3><p>Sells linen clothing on Instagram · 12.4K followers · runs the shop alone, mostly from her phone</p></div></div>
+      <div class="p-cols">
+        <div><h4>Goals</h4><ul><li>Answer every price question fast, even at night</li><li>Turn comments into orders without living in her DMs</li><li>Look professional to new customers</li></ul></div>
+        <div><h4>Fears</h4><ul><li>Getting her account restricted or banned</li><li>Handing her password to a third party</li><li>Paying for something she can’t set up</li></ul></div>
+        <div><h4>Context</h4><ul><li>Phone first, short bursts of attention</li><li>Not technical; “trigger” and “OAuth” mean nothing</li><li>Already has a post that gets the same comment 50 times</li></ul></div>
+      </div>
+      <div class="quote">“I don’t want to learn a tool. I want the ‘price?’ comments to stop piling up.”<small>The sentence the landing page headline is written for.</small></div>
+    </div>
+    <div class="grid3" style="margin-top:16px">
+      <div class="card"><span class="k">Because she’s on her phone</span><p style="margin-top:0">Mobile-first layouts, a sticky “Start free” bar, a full-screen preview sheet, and controls never under 36px.</p></div>
+      <div class="card"><span class="k">Because she’s afraid of bans</span><p style="margin-top:0">Safety is answered where the fear appears: the hero, the connect screen and the first FAQ item.</p></div>
+      <div class="card"><span class="k">Because she isn’t technical</span><p style="margin-top:0">No jargon in the interface. Every system term is translated into what it does for her (see section 07).</p></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- 04 -->
+<section class="s" id="principles"><div class="wrap">
+  <div class="s-head"><div class="s-num"><b>04</b>Principles</div><div>
+    <h2>Four rules I used to settle every argument</h2>
+  </div></div>
+  <div class="s-body">
+    <div class="pr">
+      <div class="card"><h3>Value before setup</h3><p>Show a working result first and let people edit it. A pre-filled example beats an empty form with good labels.</p></div>
+      <div class="card"><h3>Show, don’t configure</h3><p>Every change appears on a phone preview instantly. People shouldn’t have to imagine what the customer sees.</p></div>
+      <div class="card"><h3>Answer the fear where it starts</h3><p>Trust copy lives next to the action that triggers the doubt, not on a separate security page.</p></div>
+      <div class="card"><h3>Everything visible, nothing required</h3><p>All features are discoverable in the builder, but only a keyword and one reply are needed to go live.</p></div>
+    </div>
+  </div>
+</div></section>
+
+<!-- 05 -->
+<section class="s" id="decisions"><div class="wrap">
+  <div class="s-head"><div class="s-num"><b>05</b>Key decisions</div><div>
+    <h2>What I chose, and the problem behind each choice</h2>
+    <p class="intro col">Each decision is tied to a specific problem. If I couldn’t name the problem, the element didn’t make it in.</p>
+  </div></div>
+  <div class="s-body">
+
+    <div class="dgroup"><h3>Landing page</h3>
+      <div class="dec"><span class="n">01</span><div><h4>The sign-up field lives in the hero</h4><div class="pd"><div><b>Problem</b>Every extra page between interest and sign-up loses people, and the hero is where intent is highest.</div><div><b>Decision</b>An email field and “Start free” in the hero. Submitting it skips straight to the code step, and a sticky bar keeps the CTA in reach on mobile.</div></div></div></div>
+      <div class="dec"><span class="n">02</span><div><h4>A headline about her moment, and a demo that plays it out</h4><div class="pd"><div><b>Problem</b>“Automate your Instagram” describes a category. It doesn’t describe the moment Maya feels the pain.</div><div><b>Decision</b>“Answer every ‘price?’ comment in seconds, even while you sleep.” Next to it, a phone loops through the real sequence: a comment, a typing reply, then a DM with a button.</div></div></div></div>
+      <div class="dec"><span class="n">03</span><div><h4>Three steps, each with its own time</h4><div class="pd"><div><b>Problem</b>“Easy setup” is a claim. People need to judge the effort for themselves before they commit.</div><div><b>Decision</b>A three-step strip with a time on each step (under 1 min, about 1 min, 2–3 min) and a tiny UI of that step, so the promise can be checked against the product later.</div></div></div></div>
+      <div class="dec"><span class="n">04</span><div><h4>Twenty features, grouped into four jobs</h4><div class="pd"><div><b>Problem</b>A flat grid of 20 feature tiles is unreadable, but hiding features makes paid plans look thin.</div><div><b>Decision</b>Four bento cards (reply, sell in DMs, capture and follow up, safety and team), each with a small live-looking visual and its list. Plan-gated items carry a plain tag.</div></div></div></div>
+      <div class="dec"><span class="n">05</span><div><h4>An FAQ that answers fears, and no fake social proof</h4><div class="pd"><div><b>Problem</b>Invented logos, testimonials and stats are easy to spot and cost more trust than they buy.</div><div><b>Decision</b>The FAQ opens on the password question and goes straight to bans, account type, limits and setup time. Trust comes from specifics, not from made-up customers.</div></div></div></div>
+    </div>
+
+    <figure><img src="docs/flow.jpg" alt="The four onboarding steps side by side on mobile: sign up, connect, build, go live"><figcaption>The onboarding flow on mobile: one fixed frame, the same wizard on every step, actions always in the same place.</figcaption></figure>
+
+    <div class="dgroup"><h3>Onboarding flow</h3>
+      <div class="dec"><span class="n">06</span><div><h4>A four-step wizard that never moves</h4><div class="pd"><div><b>Problem</b>Onboarding that jumps between layouts makes people lose their place, and there was no way back.</div><div><b>Decision</b>One 560px frame with labeled steps (Sign up, Connect, Build, Go live), a Back button on every step, and the actions outside the card at a fixed 1/3 to 2/3 split.</div></div></div></div>
+      <div class="dec"><span class="n">07</span><div><h4>A code field that gets out of the way</h4><div class="pd"><div><b>Problem</b>Six separate boxes are fiddly on a phone, especially when the code arrives by copy and paste.</div><div><b>Decision</b>Focus moves forward on each digit and back on delete, pasting fills all six, and a full code submits itself. No extra tap needed.</div></div></div></div>
+      <div class="dec"><span class="n">08</span><div><h4>Connect: one button, three sentences of trust</h4><div class="pd"><div><b>Problem</b>“Log in with Instagram” is exactly where a cautious seller stops, and personal accounts fail silently.</div><div><b>Decision</b>Three short promises (no password, comments and DMs only, disconnect anytime), the professional-account requirement up front, and a collapsible how-to for personal accounts.</div></div></div></div>
+      <div class="dec"><span class="n">09</span><div><h4>The builder starts filled in</h4><div class="pd"><div><b>Problem</b>An empty rule builder asks people to design an automation before they’ve seen one work.</div><div><b>Decision</b>The form opens with a realistic example: keywords, three reply variations, a DM from a template and a button. Going live means editing text, not making decisions.</div></div></div></div>
+      <div class="dec"><span class="n">10</span><div><h4>A live phone preview that follows your cursor</h4><div class="pd"><div><b>Problem</b>Settings and the customer’s view live in different places, so mistakes only show up in production.</div><div><b>Decision</b>A sticky phone renders the comment thread or the DM as you type, and switches tabs to whatever field you’re editing. On mobile it becomes a full-screen sheet.</div></div></div></div>
+      <div class="dec"><span class="n">11</span><div><h4>Plan limits appear when they matter</h4><div class="pd"><div><b>Problem</b>Locked features with no explanation feel like a bait and switch, and paywalls at sign-up hurt activation.</div><div><b>Decision</b>Locked blocks show a small lock and a tooltip. Tapping one opens an inline card with what the upgrade adds, the price, and a “Not now” that keeps the free path open.</div></div></div></div>
+      <div class="dec"><span class="n">12</span><div><h4>Platform rules as hints, not settings</h4><div class="pd"><div><b>Problem</b>Rules like the 24-hour messaging window or one DM per person per post are invisible until something silently doesn’t send.</div><div><b>Decision</b>They’re stated in one line exactly where they apply, with no toggle to misconfigure.</div></div></div></div>
+      <div class="dec"><span class="n">13</span><div><h4>“It’s live”, then prove it</h4><div class="pd"><div><b>Problem</b>A success message doesn’t create confidence. Seeing the thing work does.</div><div><b>Decision</b>The final screen shows the time it took, a plain summary of the rule, and a step-by-step test (comment received, reply posted, DM sent) you can simulate or try for real.</div></div></div></div>
+    </div>
+
+    <div class="shots" style="margin-top:40px">
+      <figure><img src="docs/m-connect.jpg" alt="Connect screen on mobile"><figcaption>Connect</figcaption></figure>
+      <figure><img src="docs/m-builder.jpg" alt="Builder on mobile"><figcaption>Build</figcaption></figure>
+      <figure><img src="docs/m-done.jpg" alt="Done screen on mobile"><figcaption>Go live</figcaption></figure>
+    </div>
+  </div>
+</div></section>
+
+<!-- 06 -->
+<section class="s" id="system"><div class="wrap">
+  <div class="s-head"><div class="s-num"><b>06</b>Design system</div><div>
+    <h2>Calm teal, one warm accent</h2>
+    <p class="intro col">The category is full of blue-to-purple gradients. Murmur needed to feel calm and trustworthy, like someone handling the inbox for you, and still have a human spark.</p>
+  </div></div>
+  <div class="s-body">
+    <div class="sw">
+      <div style="background:#0E7C70;color:#fff"><b>Lagoon</b><span>#0E7C70</span></div>
+      <div style="background:#0A5A52;color:#fff"><b>Deep</b><span>#0A5A52</span></div>
+      <div style="background:#E4F2EF"><b>Soft</b><span>#E4F2EF</span></div>
+      <div style="background:#FFC94D"><b>Butter</b><span>#FFC94D</span></div>
+      <div style="background:#0F1716;color:#fff"><b>Ink</b><span>#0F1716</span></div>
+      <div style="background:#F6F7F5"><b>Paper</b><span>#F6F7F5</span></div>
+    </div>
+    <p style="margin-top:16px;color:var(--ink-2)" class="col">Teal carries every action. Butter is rationed: a highlighter mark in the headline, the “Most popular” badge, a notification dot in the logo. When it shows up, it means “look here”.</p>
+    <div class="type">
+      <div class="card"><span class="k">Display</span><div class="big" style="font-family:var(--fd);font-weight:700">Bricolage</div><p>Headlines. Its quirky, optical-size details keep the page from feeling corporate.</p></div>
+      <div class="card"><span class="k">Interface</span><div class="big" style="font-family:var(--f);font-weight:600">Geist</div><p>Body text, labels and buttons. Neutral and very readable at 12–16px.</p></div>
+      <div class="card"><span class="k">Numbers</span><div class="big" style="font-family:var(--fm);font-weight:500;font-size:40px">0:59</div><p>Geist Mono for timers, steps and code digits, so the numbers don’t jump around.</p></div>
+    </div>
+    <div class="tablewrap"><table class="tok">
+      <tr><th>Token</th><th>Values</th><th>Why</th></tr>
+      <tr><td>Spacing</td><td><code>4 8 12 16 20 24 32 40 48 64 80 96</code></td><td>One 4px scale for padding, gaps and section rhythm. No one-off values.</td></tr>
+      <tr><td>Radius</td><td><code>8 12 16 20 24 32</code></td><td>Smaller radii for inputs, larger for cards and phones, so nesting always reads correctly.</td></tr>
+      <tr><td>Controls</td><td><code>36 / 40 / 44</code></td><td>Three heights for every button and input. 44 for primary actions and touch targets.</td></tr>
+      <tr><td>Grid</td><td><code>12 col · 1248 max · 24 gutter</code></td><td>Bento cards span 7 + 5, pricing 4 + 4 + 4, the builder is fluid + a 336px preview.</td></tr>
+      <tr><td>Icons</td><td><code>Lucide · 1.8 stroke</code></td><td>One outline set everywhere, always centered in a fixed frame.</td></tr>
+      <tr><td>Motion</td><td><code>cubic-bezier(.2,.8,.2,1)</code></td><td>Collapses, tabs and the hero demo share one easing curve. All of it respects reduced motion.</td></tr>
+    </table></div>
+  </div>
+</div></section>
+
+<!-- 07 -->
+<section class="s" id="voice"><div class="wrap">
+  <div class="s-head"><div class="s-num"><b>07</b>Voice &amp; copy</div><div>
+    <h2>Say what it does for her</h2>
+    <p class="intro col">Short sentences, second person, sentence case. Buttons say the outcome (“Turn on auto-reply”), errors say how to fix it (“Try something like name@shop.com”).</p>
+  </div></div>
+  <div class="s-body">
+    <div class="tablewrap"><table class="tok">
+      <tr><th>System term</th><th>What Maya reads</th><th>Why</th></tr>
+      <tr><td>Spintax</td><td>Variations</td><td>She understands “a few versions of the reply”, not syntax.</td></tr>
+      <tr><td>Trigger</td><td>Where should we reply?</td><td>A question she can answer without learning a concept.</td></tr>
+      <tr><td>Rule / automation</td><td>Auto-reply</td><td>The thing she wants, named after the result.</td></tr>
+      <tr><td>OAuth / permissions</td><td>Official Instagram login</td><td>Names the safety she’s looking for, not the protocol.</td></tr>
+      <tr><td>Rate limiting</td><td>Each person gets one DM per post</td><td>States the behavior and the reason: it never feels like spam.</td></tr>
+      <tr><td>Messaging window</td><td>Within 24 hours of the customer’s last message</td><td>A concrete rule she can plan around.</td></tr>
+    </table></div>
+  </div>
+</div></section>
+
+<!-- 08 -->
+<section class="s" id="next"><div class="wrap">
+  <div class="s-head"><div class="s-num"><b>08</b>Scope &amp; next steps</div><div>
+    <h2>What I left out, on purpose</h2>
+  </div></div>
+  <div class="s-body col">
+    <ul class="plain">
+      <li><b>The dashboard after day one:</b> inbox, analytics, managing many auto-replies and team roles. The brief was the first five minutes.</li>
+      <li><b>Failure states:</b> declined Instagram permissions, a personal account detected after login, an expired code. They’re the next screens I’d design.</li>
+      <li><b>Billing:</b> upgrades are simulated in the prototype.</li>
+    </ul>
+    <p style="margin-top:24px">Next, I’d run five moderated sessions with solo sellers using this prototype, time each step against the 5-minute goal, and watch the connect screen closely. That’s where I expect the most hesitation.</p>
+  </div>
+</div></section>
+
+<div class="wrap">
+  <div class="end">
+    <div><h2>Click through it yourself</h2><p>The whole flow works: sign up, connect, build, go live.</p></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap"><a class="btn" href="index.html">Open the prototype</a><a class="btn ghost" href="https://github.com/{{REPO}}">View source</a></div>
+  </div>
+</div>
+</main>
+
+<footer><div class="wrap">
+  <span>Murmur is a design concept. Not affiliated with Instagram or Meta. Instagram is a trademark of Meta Platforms, Inc.</span>
+  <span>Photos: Unsplash · Icons: Lucide (ISC) · Fonts: Bricolage Grotesque, Geist (OFL)</span>
+</div></footer>
+</body>
+</html>
