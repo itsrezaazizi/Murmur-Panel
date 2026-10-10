@@ -10,8 +10,8 @@
 </p>
 
 <p align="center">
-  <a href="https://itsrezaazizi.github.io/murmur/"><b>Open the prototype</b></a> ·
-  <a href="https://itsrezaazizi.github.io/murmur/case-study.html"><b>Read the case study</b></a>
+  <a href="https://itsrezaazizi.github.io/murmur-panel/"><b>Open the prototype</b></a> ·
+  <a href="https://itsrezaazizi.github.io/murmur-panel/case-study.html"><b>Read the case study</b></a>
 </p>
 
 ---
@@ -43,7 +43,7 @@ Murmur is my take on the opposite approach: **show a working auto-reply first, t
 - On the last step, press **Simulate a test comment**
 - Resize the window: everything works down to 320px, with a full-screen preview sheet on mobile
 
-Deep links: [`#signup`](https://itsrezaazizi.github.io/murmur/#signup) · [`#connect`](https://itsrezaazizi.github.io/murmur/#connect) · [`#builder`](https://itsrezaazizi.github.io/murmur/#builder) · [`#done`](https://itsrezaazizi.github.io/murmur/#done)
+Deep links: [`#signup`](https://itsrezaazizi.github.io/murmur-panel/#signup) · [`#connect`](https://itsrezaazizi.github.io/murmur-panel/#connect) · [`#builder`](https://itsrezaazizi.github.io/murmur-panel/#builder) · [`#done`](https://itsrezaazizi.github.io/murmur-panel/#done)
 
 ## Design system at a glance
 
@@ -56,7 +56,7 @@ Deep links: [`#signup`](https://itsrezaazizi.github.io/murmur/#signup) · [`#con
 | **Grid** | 12 columns, 1248px max, 24px gutters |
 | **Icons** | Lucide, 1.8px stroke |
 
-The full reasoning (persona, principles, 13 key decisions and the copy glossary) is in the **[case study](https://itsrezaazizi.github.io/murmur/case-study.html)**.
+The full reasoning (persona, principles, 13 key decisions and the copy glossary) is in the **[case study](https://itsrezaazizi.github.io/murmur-panel/case-study.html)**.
 
 ## Project structure
 
