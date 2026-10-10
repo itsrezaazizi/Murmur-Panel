@@ -8,8 +8,8 @@ import base64, json, pathlib, re
 ROOT = pathlib.Path(__file__).parent
 SRC, DIST = ROOT / "src", ROOT
 DIST.mkdir(exist_ok=True)
-REPO = "itsrezaazizi/murmur-panel"
-SITE = "https://itsrezaazizi.github.io/murmur-panel/"
+REPO = "itsrezaazizi/Murmur-Panel"
+SITE = "https://itsrezaazizi.github.io/Murmur-Panel/"
 
 def b64(p): return base64.b64encode(p.read_bytes()).decode()
 
